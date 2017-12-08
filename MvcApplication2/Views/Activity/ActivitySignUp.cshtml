@@ -1,0 +1,50 @@
+﻿@model Tuple<AcmeWidget.Models.ActivityModel, AcmeWidget.Models.ActivitySignUpModel>
+<h2>Sign up for "@Model.Item1.ActivityType"!</h2>
+<script src="~/CkEditor/ckeditor.js"></script>
+<table class="ActivitySignUp">
+	<tr>
+		<td>
+			@Html.DisplayNameFor( model => model.Item2.FirstName )
+		</td>
+		<td>
+			@Html.TextBoxFor( model => model.Item2.FirstName)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			@Html.DisplayNameFor( model => model.Item2.LastName )
+		</td>
+		<td>
+			@Html.TextBoxFor( model => model.Item2.LastName)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			@Html.DisplayNameFor( model => model.Item2.Email )
+		</td>
+		<td>
+			@Html.TextBoxFor( model => model.Item2.Email)
+		</td>
+	</tr>
+	<tr>
+		<td>
+			@Html.DisplayNameFor( model => model.Item2.Comments )
+		</td>
+		<td>
+			<textarea name="editor1" id="editor1" rows="10" cols="80">
+				@if ( !string.IsNullOrWhiteSpace ( Model.Item2.Comments ) ) { @Html.Raw( Model.Item2.Comments ) }
+			</textarea>
+		</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+			<input type="submit" value="Save" />
+			<input type="submit" value="Cancel" />
+		</td>
+	</tr>
+</table>
+<script>
+	// Replaces #editor1 with CKEditor instance using default configuration.
+	CKEDITOR.replace('editor1');
+</script>
