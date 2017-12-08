@@ -2,7 +2,7 @@
 
 @{ ViewBag.Title = "Activities"; }
 
-<section id="PersonalContacts" style="float: left;">
+<section id="sectionAvailableActivities" style="float: left;">
 <h2>@ViewBag.Title</h2>
 	<table class="PersonalContacts">
 		<tr>
@@ -13,59 +13,21 @@
 				@Html.DisplayNameFor( model => model.Description )
 			</th>
 		</tr>
-		@if ( Model != null && Model.Count ( ) > 0 )
-		{
-			foreach ( var item in Model )
-			{
-				<tr data-activityid="@item.Id" onclick='ActivitySignUp(@Html.Raw(Json.Encode(item)));' class="Clickable">
-					<td class="ToolTip">
-						@Html.DisplayFor( modelItem => item.ActivityType )
-					</td>
-					<td>
-						@Html.DisplayFor( modelItem => item.Description )
-					</td>
-				</tr>
-			}
-		}
+@if ( Model != null && Model.Count ( ) > 0 ) {
+	foreach ( var item in Model ) {
+		<tr data-activityid="@item.Id" onclick='ActivitySignUp(@Html.Raw(Json.Encode(item)));' class="Clickable" title="I wanna go!">
+			<td>
+				@Html.DisplayFor( modelItem => item.ActivityType )
+			</td>
+			<td>
+				@Html.DisplayFor( modelItem => item.Description )
+			</td>
+		</tr>	}	}
 	</table>
 	<style>
 		table.PersonalContacts > tbody > tr.Clickable:hover {
 			color: green;
 			cursor: pointer;
-		}
-
-		.ToolTip {
-			display: inline;
-			position: relative;
-		}
-
-		.ToolTip:hover:after {
-			background: #111;
-			background: rgba(0,0,0,.8);
-			border-radius: .5em;
-			bottom: 1.35em;
-			color: #fff;
-			content: attr("I wanna go!");
-			display: block;
-			left: 1em;
-			padding: .3em 1em;
-			position: absolute;
-			text-shadow: 0 1px 0 #000;
-			white-space: nowrap;
-			z-index: 98;
-		}
-
-		.ToolTip:hover:before {
-			border: solid;
-			border-color: #111 transparent;
-			border-color: rgba(0,0,0,.8) transparent;
-			border-width: .4em .4em 0 .4em;
-			bottom: 1em;
-			content: "";
-			display: block;
-			left: 2em;
-			position: absolute;
-			z-index: 99;
 		}
 	</style>
 	<script type="text/javascript">
@@ -76,7 +38,7 @@
 				data: JSON.stringify(item),
 				contentType: "application/json; charset=utf-8",
 				success: function (data) {
-					$( "#PersonalContacts" ).hide( );
+					$( "#sectionAvailableActivities" ).hide();
 
 					$( "#sectionActivitySignUp" ).html(data);
 				}
@@ -85,4 +47,4 @@
 	</script>
 </section>
 <section id="sectionActivitySignUp"></section>
-
+<section id="sectionSignedUp"></section>

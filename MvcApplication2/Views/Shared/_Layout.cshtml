@@ -12,6 +12,11 @@
         @Scripts.Render("~/bundles/modernizr")
         @section Scripts{
             <script src="@System.Web.Optimization.BundleTable.Bundles.ResolveBundleUrl("~/bundles/jqueryval")"></script>
+			<script type="text/javascript">
+				$(function () {
+					$(document).tooltip();
+				});
+			</script>
         }
     </head>
     <body>

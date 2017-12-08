@@ -48,3 +48,13 @@
 	// Replaces #editor1 with CKEditor instance using default configuration.
 	CKEDITOR.replace('editor1');
 </script>
+<script type="text/javascript">
+	var validateEmail = function ( emailField ) {
+		var reg = /^([A-Za-z0-9_\-\.])+\@@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+		if (reg.test(emailField) == false) {
+			alert('Invalid Email Address');
+			return false;
+		}
+		return true;
+	} 
+</script>
