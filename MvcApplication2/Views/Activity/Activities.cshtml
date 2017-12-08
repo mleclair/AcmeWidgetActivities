@@ -22,7 +22,8 @@
 			<td>
 				@Html.DisplayFor( modelItem => item.Description )
 			</td>
-		</tr>	}	}
+		</tr>
+}	}
 	</table>
 	<style>
 		table.PersonalContacts > tbody > tr.Clickable:hover {
@@ -43,7 +44,39 @@
 					$( "#sectionActivitySignUp" ).html(data);
 				}
 			});
-		}
+		};
+		var SignUp = function (el) {
+
+			var $signUpContainer = $(el).closest("table")[0];
+			var item = {};
+
+			item.FirstName = $signUpContainer.find("#txtFirstName").val();
+			item.LastName = $signUpContainer.find("#txtLastName").val();
+			item.Email = $signUpContainer.find("#txtEmail").val();
+
+			if (CKEDITOR && CKEDITOR.instances && CKEDITOR.instances.editor1) {
+				var data = CKEDITOR.instances.editor1.getData();
+
+				// encode html
+				if (data && data.length > 0) item.Comments = $("<div/>").text(data).html();
+			}
+
+			$.ajax({
+				url: "/Activity/SignUp",
+				type: "POST",
+				data: JSON.stringify(item),
+				contentType: "application/json; charset=utf-8",
+				success: function (data) {
+					//$("#sectionAvailableActivities").hide();
+
+					$("#sectionActivitySignUp").html("");
+				}
+			});
+		};
+		var CancelSignUp = function () {
+			$("#sectionActivitySignUp").html("");
+			$("#sectionAvailableActivities").show();
+		};
 	</script>
 </section>
 <section id="sectionActivitySignUp"></section>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AcmeWidget.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
@@ -11,7 +12,7 @@ namespace AcmeWidget.DAL
 	{
 		public ActivitySignUpContext() : base("ActivitySignUpContext") { }
 
-		public DbSet<ActivitySignUpContext> ActivitySignUps { get; set; }
+		public DbSet<ActivitySignUpModel> ActivitySignUps { get; set; }
 
 		protected override void OnModelCreating ( DbModelBuilder modelBuilder )
 		{

@@ -131,18 +131,18 @@ namespace AcmeWidget.Controllers
 			return View( db.Activities.ToList ( ) );
 		}
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		public IEnumerable<ActivityModel> ActivitiesList ( )
-		{
-			ActivityContext db = new ActivityContext ( );
+		///// <summary>
+		///// 
+		///// </summary>
+		///// <returns></returns>
+		//public IEnumerable<ActivityModel> ActivitiesList ( )
+		//{
+		//	ActivityContext db = new ActivityContext ( );
 
-			//return Json ( new { result = db.Activities.ToList ( ) } , JsonRequestBehavior.AllowGet );
+		//	//return Json ( new { result = db.Activities.ToList ( ) } , JsonRequestBehavior.AllowGet );
 
-			return db.Activities.ToList ( );
-		}
+		//	return db.Activities.ToList ( );
+		//}
 
 		/// <summary>
 		/// 
@@ -154,6 +154,39 @@ namespace AcmeWidget.Controllers
 			return PartialView ( "ActivitySignUp" ,
 						new Tuple<AcmeWidget.Models.ActivityModel, AcmeWidget.Models.ActivitySignUpModel> ( 
 							activity , new ActivitySignUpModel { ActivityId = activity.Id } ) );
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="signUp"></param>
+		/// <returns></returns>
+		public bool SignUp ( ActivitySignUpModel signUp )
+		{
+			try
+			{
+				ActivitySignUpContext db = new ActivitySignUpContext ( );
+
+				db.ActivitySignUps.Add ( signUp );
+
+				db.SaveChanges ( );
+
+				return true;
+			}
+			catch ( System.Exception ex)
+			{
+				throw ex;
+			}
+		}
+
+
+		public ActionResult SignedUp ( string personEmail )
+		{
+			ScheduledActivityModel scheduledActivities = new ScheduledActivityModel ( );
+
+			// get all activities and attendees that the person is signed up for
+
+			return PartialView ( "SignedUp" , scheduledActivities );
 		}
 	}
 }

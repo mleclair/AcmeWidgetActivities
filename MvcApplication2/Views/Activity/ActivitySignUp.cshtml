@@ -7,7 +7,7 @@
 			@Html.DisplayNameFor( model => model.Item2.FirstName )
 		</td>
 		<td>
-			@Html.TextBoxFor( model => model.Item2.FirstName)
+			@Html.TextBoxFor( model => model.Item2.FirstName , new { @id="txtFirstName" , @onchange="validateInputNotEmpty(this);" } )
 		</td>
 	</tr>
 	<tr>
@@ -15,7 +15,7 @@
 			@Html.DisplayNameFor( model => model.Item2.LastName )
 		</td>
 		<td>
-			@Html.TextBoxFor( model => model.Item2.LastName)
+			@Html.TextBoxFor( model => model.Item2.LastName , new { @id="txtLastName" , @onchange="validateInputNotEmpty(this);" } )
 		</td>
 	</tr>
 	<tr>
@@ -23,7 +23,7 @@
 			@Html.DisplayNameFor( model => model.Item2.Email )
 		</td>
 		<td>
-			@Html.TextBoxFor( model => model.Item2.Email)
+			@Html.TextBoxFor( model => model.Item2.Email , new { @id="txtEmail" , @onchange="validateEmail(this);" })
 		</td>
 	</tr>
 	<tr>
@@ -39,8 +39,8 @@
 	<tr>
 		<td></td>
 		<td>
-			<input type="submit" value="Save" />
-			<input type="submit" value="Cancel" />
+			<input type="submit" value="Save" onclick="SignUp(this)" /> @*disabled="disabled" />*@
+			<input type="submit" value="Cancel" onclick="CancelSignUp();" />
 		</td>
 	</tr>
 </table>
@@ -51,10 +51,30 @@
 <script type="text/javascript">
 	var validateEmail = function ( emailField ) {
 		var reg = /^([A-Za-z0-9_\-\.])+\@@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
-		if (reg.test(emailField) == false) {
-			alert('Invalid Email Address');
+		if (reg.test(emailField.value) == false) {
+			$(emailField).addClass("Red").removeClass("Green");
 			return false;
 		}
-		return true;
-	} 
+		else {
+			$(emailField).addClass("Green").removeClass("Red");
+			return true;
+		}
+	};
+	var validateInputNotEmpty = function ( input ) {
+		if (input.value && input.value.length > 0) {
+			$(input).addClass("Green").removeClass("Red");
+			return true;
+		} else {
+			$(input).addClass("Red").removeClass("Green");
+			return false;
+		}
+	};
 </script>
+<style>
+	input.Red {
+		border-color: red;
+	}
+	input.Green {
+		border-color: green;
+	}
+</style>
